@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Music Genre Classifier</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="logo">MG</div>
+      <div>
+        <h1>Music Genre Classifier</h1>
+        <p class="lead">Upload an audio file (mp3/wav) and classify its genre using simple audio features.</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label class="drop" id="dropZone"> 
+        <strong>Drop audio here</strong>
+        <span class="legend">or click to choose a file (mp3, wav)</span>
+        <input id="fileInput" type="file" accept="audio/*">
+      </label>
+
+      <div class="side-panel">
+        <div class="panel">
+          <div class="buttons">
+            <button id="analyzeBtn" disabled>Analyze</button>
+            <button id="playBtn" disabled>Play</button>
+            <button id="stopBtn" disabled>Stop</button>
+          </div>
+          <div class="model-input">
+            Model (optional): 
+            <input id="modelUrl" placeholder="TF.js model URL (optional)" />
+          </div>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight:600">File</div>
+          <div id="fileName" class="file-name">No file loaded</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div>
+        <canvas id="wave" width="1024" height="160"></canvas>
+        <div class="panel classification">
+          <div class="class-header">
+            <div style="font-weight:600">Classification</div>
+            <div id="confText" class="muted">—</div>
+          </div>
+
+          <div id="predictionArea">
+            <div id="predLabel" class="prediction-label">—</div>
+            <div class="legend">Feature meters below are used by the heuristic classifier.</div>
+
+            <div class="meter-group">
+              <span>Spectral Centroid</span>
+              <div class="meter"><i id="centroidMeter"></i></div>
+            </div>
+            <div class="meter-group">
+              <span>RMS (energy)</span>
+              <div class="meter"><i id="rmsMeter"></i></div>
+            </div>
+            <div class="meter-group">
+              <span>Zero-crossing rate</span>
+              <div class="meter"><i id="zcrMeter"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <div style="font-weight:600">Details & Debug</div>
+          <pre id="debug" class="debug"></pre>
+        </div>
+
+        <div class="panel">
+          <div style="font-weight:600">How this works</div>
+          <div class="legend">This demo computes simple audio features using Web Audio API and classifies them with a heuristic. Optionally load a TensorFlow.js model for better accuracy.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Tip: Try short clips (10–60s). Press Play to hear the audio.</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
